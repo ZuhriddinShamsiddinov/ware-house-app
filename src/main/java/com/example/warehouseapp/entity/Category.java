@@ -11,10 +11,6 @@ import javax.persistence.ManyToOne;
 @Entity
 @Data
 public class Category extends AbsNameEntity {
-    //qonday
-    //qonday
-    //qonday
-    //qonday
     @ManyToOne
     private Category parentCategory;
 }
