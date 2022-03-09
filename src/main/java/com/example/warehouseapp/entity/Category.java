@@ -11,13 +11,10 @@ import javax.persistence.ManyToOne;
 @Entity
 @Data
 public class Category extends AbsNameEntity {
-    //ketmon
-    //ketmon
-    //ketmon
-    //ketmon
-    //ketmon
-    //ketmon
-    //ketmon
+    //qonday
+    //qonday
+    //qonday
+    //qonday
     @ManyToOne
     private Category parentCategory;
 }
