@@ -1,6 +1,6 @@
 package com.example.warehouseapp.entity;
 
-import com.example.warehouseapp.entity.abs.AbsNameEntity;
+import com.example.warehouseapp.entity.abs.AbsEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,11 +11,15 @@ import javax.persistence.OneToOne;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-public class Product extends AbsNameEntity {
-    @ManyToOne
-    private Category category;
-    private String code;
+public class OutputProduct extends AbsEntity {
+
     @OneToOne
-    private Measurement measurement;
+    private Product product;
+    private Double amount;
+    private Double price;
+
+    @ManyToOne
+    private Output output;
+
 
 }
