@@ -4,17 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-
 public class ApiResponse {
     private String message;
-    private  Boolean seccess;
+    private boolean success;
     private Object object;
 
-    public ApiResponse(String message, Boolean seccess) {
+    public ApiResponse(String message, boolean success) {
         this.message = message;
-        this.seccess = seccess;
+        this.success = success;
     }
 }
