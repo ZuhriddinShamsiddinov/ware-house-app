@@ -17,7 +17,7 @@ public class UserDTO {
     private String phoneNumber;
     private String code;
     private String password;
-    private List<Integer> warehousesId;
+    private Integer warehouseId;
 
 
 }

@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,17 +23,38 @@ public class UserService {
     @Autowired
     WarehouseRepository warehouseRepository;
 
-    public ApiResponse save(UserDTO userDTO) {
+    public ApiResponse save(UserDTO userDto) {
         User user = new User();
-        user.setName(userDTO.getName());
-        user.setLastName(userDTO.getLastName());
-        user.setPassword(userDTO.getPassword());
-        if (!userRepository.existsByPhoneNumber(userDTO.getPhoneNumber())) return new ApiResponse("Telefon bor", false);
-        user.setPhoneNumber(userDTO.getPhoneNumber());
+        user.setName(userDto.getName());
+        user.setLastName(userDto.getLastName());
+        user.setPassword(userDto.getPassword());
+        if (!userRepository.existsByPhoneNumber(userDto.getPhoneNumber()))
+            return new ApiResponse("Phone Number is taken", false);
+        user.setPhoneNumber(userDto.getPhoneNumber());
         user.setCode(UUID.randomUUID().toString());
-        List<Warehouse> warehouseById = warehouseRepository.findAllById(userDTO.getWarehousesId());
-        user.setWarehouseList(warehouseById);
+        List<Warehouse> warehousesById = warehouseRepository.findAllById(Collections.singleton(userDto.getWarehouseId()));
+        user.setWarehouseList(warehousesById);
+        User save = userRepository.save(user);
+        System.out.println(save);
+        return new ApiResponse("Saved!", true);
+    }
+
+    public ApiResponse edit(Integer id, UserDTO userDto) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (!optionalUser.isPresent()) return new ApiResponse("Not Found", false);
+        User user = optionalUser.get();
+        if (!userDto.getName().isEmpty()) user.setName(userDto.getName());
+        if (!userDto.getLastName().isEmpty()) user.setLastName(userDto.getLastName());
+        if (!userDto.getPassword().isEmpty()) user.setPassword(userDto.getPassword());
+        if (!userDto.getPhoneNumber().isEmpty() && !userDto.getPhoneNumber().equals(user.getPhoneNumber())) {
+            if (!userRepository.existsByPhoneNumber(userDto.getPhoneNumber()))
+                return new ApiResponse("Phone Number is taken", false);
+            user.setPhoneNumber(userDto.getPhoneNumber());
+        }
+        user.setCode(UUID.randomUUID().toString());
+        List<Warehouse> warehouseList = warehouseRepository.findAllById(Collections.singleton(userDto.getWarehouseId()));
+        user.setWarehouseList(warehouseList);
         userRepository.save(user);
-        return new ApiResponse("Saved", true);
+        return new ApiResponse("Edited!", true);
     }
 }

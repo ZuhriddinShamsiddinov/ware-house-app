@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<h1>Warehouse page</h1>
+<div class="container">
+    <h1>Warehouse Page</h1>
+    <a href="/warehouse/add" class="btn btn-success">Yangi Ombor Qo'shish</a>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Operations</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each=" warehouse,i : ${list}">
+            <td th:text="${i.index+1}"></td>
+            <td th:text="${warehouse.name}"></td>
+            <td>
+                <a class="btn btn-warning" th:href="${'/warehouse/edit/'+warehouse.id}">Edit</a>
+                <a class="btn btn-danger" th:href="${'/warehouse/delete/'+warehouse.id}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a class="btn btn-danger" th:href="${'/'}">Back</a>
+
 </body>
 </html>
