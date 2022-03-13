@@ -23,29 +23,29 @@ public class UserService {
     @Autowired
     WarehouseRepository warehouseRepository;
 
-    public ApiResponse save(UserDTO userDto) {
+    public ApiResponse save(UserDTO userDTO) {
         User user = new User();
-        user.setName(userDto.getName());
-        user.setLastName(userDto.getLastName());
-        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setName(userDTO.getName());
+        user.setLastName(userDTO.getLastName());
+        user.setPhoneNumber(userDTO.getPhoneNumber());
         user.setCode(UUID.randomUUID().toString());
-        user.setPassword(userDto.getPassword());
-        List<Warehouse> warehousesById = warehouseRepository.findAllById(userDto.getWarehousesId());
+        user.setPassword(userDTO.getPassword());
+        List<Warehouse> warehousesById = warehouseRepository.findAllById(userDTO.getWarehousesId());
         user.setWarehouseList(warehousesById);
         User save = userRepository.save(user);
         System.out.println(save);
         return new ApiResponse("Saved!", true);
     }
 
-    public ApiResponse edit(Integer id, UserDTO userDto) {
+    public ApiResponse edit(Integer id, UserDTO userDTO) {
         Optional<User> optionalUser = userRepository.findById(id);
         User user = optionalUser.get();
-        user.setName(userDto.getName());
-        user.setLastName(userDto.getLastName());
-        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setName(userDTO.getName());
+        user.setLastName(userDTO.getLastName());
+        user.setPhoneNumber(userDTO.getPhoneNumber());
         user.setPassword(user.getPassword());
         user.setCode(UUID.randomUUID().toString());
-        List<Warehouse> warehouseList = warehouseRepository.findAllById(userDto.getWarehousesId());
+        List<Warehouse> warehouseList = warehouseRepository.findAllById(userDTO.getWarehousesId());
         user.setWarehouseList(warehouseList);
         userRepository.save(user);
         return new ApiResponse("Edited!", true);

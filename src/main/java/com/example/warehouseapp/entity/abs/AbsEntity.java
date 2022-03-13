@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,8 +15,8 @@ import java.sql.Timestamp;
 @MappedSuperclass
 public abstract class AbsEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
+    private UUID id;
 
     @CreationTimestamp
     @Column
