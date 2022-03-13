@@ -15,12 +15,8 @@ public class ClientService {
     ClientRepository clientRepository;
 
     public ApiResponse create(Client client){
-
-        Client client1=new Client();
-        client1.setName(client.getName());
-        client1.setPhoneNumber(client.getPhoneNumber());
-        Client save = clientRepository.save(client1);
-        return new ApiResponse("save",true);
+        Client save = clientRepository.save(client);
+        return new ApiResponse("save",true,save);
     }
     public ApiResponse updete(Integer id,Client client){
         Optional<Client> byId = clientRepository.findById(id);

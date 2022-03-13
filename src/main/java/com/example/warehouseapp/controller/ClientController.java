@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/client")
 public class ClientController {
@@ -19,7 +21,7 @@ public class ClientController {
 
     @GetMapping
     public String getAll(Model model){
-        model.addAttribute("listclient",clientRepository.findAll());
+        model.addAttribute("listclient",clientRepository.findAllByActiveTrue());
         return "client/client";
     }
     @GetMapping("/add")
@@ -41,6 +43,14 @@ public class ClientController {
         clientService.updete(id,client);
         return "redirect:/client";
     }
-
+    @GetMapping("delete/{id}")
+    public String delete(@PathVariable Integer id){
+        Optional<Client> byId = clientRepository.findById(id);
+        if(!byId.isPresent()) return "Bunday id yo'q";
+        Client client = byId.get();
+        client.setActive(false);
+        clientRepository.save(client);
+        return "redirect:/client";
+    }
 
 }
