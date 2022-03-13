@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<h1>Supplier Edit Page</h1>
+<form method="post" th:action="@{/supplier/edit/{id}(id=${list.getId()})}" th:object="${list}">
+    <div class="form-group">
+        <label for="fullname"><dt>Supplier Name</dt></label>
+        <input class="form-control" th:field="*{name}" name="fullname" type="text" id="fullname"
+               placeholder="Supplier name:"><br>
+        <label for="phoneNumber"><dt>Supplier Phone Number</dt></label>
+        <input class="form-control" th:field="*{phoneNumber}" name="phoneNumber" type="text" id="phoneNumber"
+               placeholder="Supplier phone number:">
+        <br>
+
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+<br>
+<br>
+<br>
+<a class="btn btn-danger" th:href="${'/supplier'}">Back</a>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<h1>Supplier Add Page</h1>
+<form method="post" th:action="@{/supplier/add}">
+    <div class="form-group">
+        <label for="name"><dt>Supplier Name</dt></label>
+        <input name="name" type="text" class="form-control" id="name"
+               placeholder="Supplier name">
+
+        <label for="phone"><dt>Supplier Phone Number</dt></label>
+        <input name="phoneNumber" type="text" class="form-control" id="phone"
+               placeholder="Supplier phone number">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+<br>
+<br>
+<a class="btn btn-danger" th:href="${'/supplier'}">Back</a>
+</body>
+</html>

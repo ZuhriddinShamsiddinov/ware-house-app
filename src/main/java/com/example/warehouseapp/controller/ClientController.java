@@ -37,7 +37,9 @@ public class ClientController {
 
     @GetMapping("/edit/{id}")
     public String updete(Model model, @PathVariable Integer id) {
-        model.addAttribute("editlist", clientRepository.findById(id));
+        Optional<Client> byId = clientRepository.findById(id);
+        Client client = byId.get();
+        model.addAttribute("editlist", client);
         return "client/edit-client";
     }
 

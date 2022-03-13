@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<h1>Client Edit Page</h1>
+<form method="post" th:action="@{/client/edit/{id}(id=${editlist.getId()})}" th:object="${editlist}">
+    <div class="form-group">
+        <input class="form-control" th:field="*{name}" name="name" type="text" id="name"
+               placeholder="Client name:"><br>
+
+        <input class="form-control" th:field="*{phoneNumber}" name="phoneNumber" type="text" id="phoneNumber"
+               placeholder="Client phone number:">
+        <br>
+
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+<br>
+<br>
+<br>
+<a class="btn btn-danger" th:href="${'/client'}">Back</a>
+</body>
+</html>
