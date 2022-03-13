@@ -15,9 +15,10 @@ import javax.persistence.OneToOne;
 @Entity
 @Data
 public class Product extends AbsNameEntity {
+    private String code;
     @ManyToOne
     private Category category;
-    private String code;
+
     @OneToOne
     private Measurement measurement;
 

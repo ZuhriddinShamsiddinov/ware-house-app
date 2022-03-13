@@ -8,25 +8,24 @@
 </head>
 <body>
 <div class="container">
-    <h1>Product Page</h1>
-    <a href="/product/add" class="btn btn-success">Yangi Department Qo'shish</a>
+    <h1>Category page</h1>
+    <a href="/category/add" class="btn btn-success">Yangi Category Qo'shish</a>
     <table class="table table-hover">
         <thead>
         <tr>
             <th>Id</th>
             <th>Name</th>
-            <th>Company</th>
             <th>Operations</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each=" product,i : ${listProduct}">
+        <tr th:each=" category,i : ${list}">
             <td th:text="${i.index+1}"></td>
-            <td th:text="${product.getName()}"></td>
-            <td th:text="${product.category.name}"></td>
+            <!--/*@thymesVar id="name" type="java"*/-->
+            <td th:text="${category.getName()}"></td>
             <td>
-                <a class="btn btn-warning" th:href="${'/department/edit/'+department.id}">Edit</a>
-                <a class="btn btn-danger" th:href="${'/department/delete/'+department.id}">Delete</a>
+                <a class="btn btn-warning" th:href="${'/category/edit/'+category.id}">Edit</a>
+                <a class="btn btn-danger" th:href="${'/category/delete/'+category.id}">Delete</a>
             </td>
         </tr>
         </tbody>

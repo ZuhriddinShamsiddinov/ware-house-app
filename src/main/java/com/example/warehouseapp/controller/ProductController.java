@@ -4,6 +4,7 @@ import com.example.warehouseapp.dto.ApiResponse;
 import com.example.warehouseapp.dto.ProductDTO;
 import com.example.warehouseapp.entity.Product;
 import com.example.warehouseapp.repository.CategoryRepository;
+import com.example.warehouseapp.repository.MeasurementRepository;
 import com.example.warehouseapp.repository.ProductRepository;
 import com.example.warehouseapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +26,20 @@ public class ProductController {
     ProductService productService;
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    MeasurementRepository measurementRepository;
 
 
     @GetMapping
     public String getProduct(Model model) {
-        model.addAttribute("listProduct", productRepository.findByActiveTrue());
+        model.addAttribute("listProduct", productRepository.findAll());
         return "product/product";
     }
 
     @GetMapping("/add")
-    public String getAddPage() {
+    public String getAddPage(Model model) {
+        model.addAttribute("CategorytList",categoryRepository.findAll());
+        model.addAttribute("measurementList",measurementRepository.findAllByActiveTrue());
         return "product/product-add";
     }
 
@@ -55,7 +60,7 @@ public class ProductController {
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) return "error";
 
-        model.addAttribute("edited", product.get());
+        model.addAttribute("edited", product);
         model.addAttribute("categoryList", categoryRepository.findByActiveTrue());
         return "product/product-edit";
     }
