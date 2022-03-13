@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1>Client Page</h1>
+    <a href="/client/add" class="btn btn-success">Yangi Client Qo'shish</a>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Operations</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each=" client,i : ${listclient}">
+            <td th:text="${i.index+1}"></td>
+            <td th:text="${client.getName()}"></td>
+            <td th:text="${client.getPhoneNumber()}"></td>
+            <td>
+                <a class="btn btn-warning" th:href="${'/currency/edit/'+client.id}">Edit</a>
+                <a class="btn btn-danger" th:href="${'/currency/delete/'+client.id}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a class="btn btn-danger" th:href="${'/'}">Back</a>
+
+</body>
+</html>

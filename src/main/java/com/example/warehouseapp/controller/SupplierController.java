@@ -39,8 +39,9 @@ public class SupplierController {
     @GetMapping("/edit/{id}")
     public String editSupplier(Model model, @PathVariable Integer id) {
         Optional<Supplier> byId = supplierRepository.findById(id);
+        Supplier supplier = byId.get();
         if (byId.isEmpty()) return "Xatolik";
-        model.addAttribute("list", supplierRepository.findById(id));
+        model.addAttribute("list", supplier);
         return "supplier/edit-supplier";
 
     }
