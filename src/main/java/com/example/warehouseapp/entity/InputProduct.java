@@ -23,4 +23,5 @@ public class InputProduct extends AbsEntity {
     private Input input;
 
 
+
 }
