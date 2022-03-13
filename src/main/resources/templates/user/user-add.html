@@ -7,7 +7,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<h1>User Add Page</h1>
+<h1>User Edit Page</h1>
 <form method="post" th:action="@{/user/add}">
     <div class="form-group">
         <label for="name">Name</label>
@@ -17,7 +17,7 @@
         <input name="lastName" type="text" class="form-control" id="lastName"
                placeholder="User Last name kirit">
         <label for="phoneNumber">Phone</label>
-        <input name="phone" type="text" class="form-control" id="phoneNumber"
+        <input name="phoneNumber" type="text" class="form-control" id="phoneNumber"
                placeholder="User phone kirit">
         <label for="password">Password</label>
         <input name="password" type="password" class="form-control" id="password"
@@ -26,18 +26,14 @@
     <div>
         <label> WareHouse </label>
         <div>
-            <label>
-                <select name="warehousesId">
-                    <option th:each="warehouse : ${warehouses}"
-                            th:text="${warehouse.name}"
-                            th:value="${warehouse.id}">
-                </select>
-            </label>
+            <select name="warehousesId">
+                <option th:each="warehouse : ${warehouses}"
+                        th:text="${warehouse.name}"
+                        th:value="${warehouse.id}">
+            </select>
         </div>
     </div>
-    <label for="active">Active:</label>
-    <input type="checkbox" id="active" name="active">
-    <button type="submit" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-primary">Save</button>
 </form>
 <br>
 <br>
