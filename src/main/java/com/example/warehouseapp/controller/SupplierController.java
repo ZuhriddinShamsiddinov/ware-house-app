@@ -1,6 +1,7 @@
 package com.example.warehouseapp.controller;
 
 import com.example.warehouseapp.dto.ApiResponse;
+import com.example.warehouseapp.entity.Client;
 import com.example.warehouseapp.entity.Supplier;
 import com.example.warehouseapp.repository.SupplierRepository;
 import com.example.warehouseapp.service.SupplierServise;
@@ -49,6 +50,17 @@ public class SupplierController {
     @PostMapping("/edit/{id}")
     public String editSupplierSave(@PathVariable Integer id, @ModelAttribute Supplier supplier) {
         ApiResponse update = supplierServise.update(id, supplier);
+        return "redirect:/supplier";
+    }
+
+
+    @GetMapping("delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        Optional<Supplier> byId = supplierRepository.findById(id);
+        if (byId.isEmpty()) return "Bunday id yo'q";
+        Supplier supplier = byId.get();
+        supplier.setActive(false);
+        supplierRepository.save(supplier);
         return "redirect:/supplier";
     }
 
