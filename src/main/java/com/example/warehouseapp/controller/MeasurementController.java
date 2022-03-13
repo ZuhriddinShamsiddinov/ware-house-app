@@ -1,7 +1,6 @@
 package com.example.warehouseapp.controller;
 
 import com.example.warehouseapp.entity.Measurement;
-import com.example.warehouseapp.entity.Warehouse;
 import com.example.warehouseapp.repository.MeasurementRepository;
 import com.example.warehouseapp.service.MeasurementService;
 import org.springframework.beans.factory.annotation.Autowired;

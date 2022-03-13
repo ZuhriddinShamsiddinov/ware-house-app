@@ -18,9 +18,9 @@ public class ClientService {
         Client save = clientRepository.save(client);
         return new ApiResponse("save",true,save);
     }
-    public ApiResponse updete(Integer id,Client client){
+    public ApiResponse update(Integer id,Client client){
         Optional<Client> byId = clientRepository.findById(id);
-        if (!byId.isPresent()){ return new ApiResponse("Xatolik",false);}
+        if (byId.isEmpty()){ return new ApiResponse("Xatolik",false);}
         Client client1 = byId.get();
         client1.setName(client.getName());
         client1.setPhoneNumber(client.getPhoneNumber());

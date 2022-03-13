@@ -47,7 +47,7 @@ public class SupplierController {
 
     @PostMapping("/edit/{id}")
     public String editSupplierSave(@PathVariable Integer id, @ModelAttribute Supplier supplier) {
-        ApiResponse update = supplierServise.updete(id, supplier);
+        ApiResponse update = supplierServise.update(id, supplier);
         return "redirect:/supplier";
     }
 
