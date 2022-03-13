@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.OpenOption;
+
 import java.util.Optional;
 
 @Controller
@@ -53,7 +53,7 @@ public class ProductController {
     @GetMapping("/edit{id}")
     public String getEditProduct(Model model, @PathVariable Integer id) {
         Optional<Product> product = productRepository.findById(id);
-        if (!product.isEmpty()) return "Error";
+        if (product.isPresent()) return "error";
 
         model.addAttribute("edited", product.get());
         model.addAttribute("categoryList", categoryRepository.findByActiveTrue());

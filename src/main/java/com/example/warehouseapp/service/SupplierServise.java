@@ -19,9 +19,9 @@ public class SupplierServise {
     supplierRepository.save(supplier);
     return new ApiResponse("saved",true);
     }
-    public ApiResponse updete(Integer id,Supplier supplier){
+    public ApiResponse update(Integer id,Supplier supplier){
         Optional<Supplier> byId = supplierRepository.findById(id);
-        if (!byId.isPresent()) return new ApiResponse("Xatolik",false);
+        if (byId.isEmpty()) return new ApiResponse("Xatolik",false);
         Supplier supplier1 = byId.get();
         supplier1.setName(supplier.getName());
         supplier1.setPhoneNumber(supplier.getPhoneNumber());
@@ -30,7 +30,7 @@ public class SupplierServise {
     }
     public ApiResponse delete(Integer id){
         Optional<Supplier> byId = supplierRepository.findById(id);
-        if (!byId.isPresent()) return new ApiResponse("Xatolik",false);
+        if (byId.isEmpty()) return new ApiResponse("Xatolik",false);
         Supplier supplier = byId.get();
         supplier.setActive(false);
         supplierRepository.save(supplier);

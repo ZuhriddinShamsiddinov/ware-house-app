@@ -43,7 +43,7 @@ public class ClientController {
 
     @PostMapping("/edit/{id}")
     public String editsave(@PathVariable Integer id, @ModelAttribute Client client) {
-        clientService.updete(id, client);
+        clientService.update(id, client);
         return "redirect:/client";
     }
 
