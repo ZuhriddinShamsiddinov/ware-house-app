@@ -28,44 +28,45 @@ public class ProductController {
 
 
     @GetMapping
-    public String getProduct(Model model){
-      model.addAttribute("listProduct",productRepository.findByActiveTrue());
-      return "product/product";
+    public String getProduct(Model model) {
+        model.addAttribute("listProduct", productRepository.findByActiveTrue());
+        return "product/product";
     }
 
-   @GetMapping("/add")
-    public String getAddPage(){
-     return "product/product-add";
-}
+    @GetMapping("/add")
+    public String getAddPage() {
+        return "product/product-add";
+    }
 
-  @PostMapping("/add")
-    public String addPage(Model model, @ModelAttribute Product product){
-     productService.add(product);
-     return "redirect:/product";
-  }
+    @PostMapping("/add")
+    public String addPage(@ModelAttribute ProductDTO productDTO) {
+        productService.save(productDTO);
+        return "redirect:/product";
+    }
 
-  @GetMapping("/delete{id}")
-    public String delete(Model model, @PathVariable Integer id){
-     productRepository.deleteById(id);
-     return "redirect:/product";
-  }
+    @GetMapping("/delete{id}")
+    public String delete(@PathVariable Integer id) {
+        productRepository.deleteById(id);
+        return "redirect:/product";
+    }
 
-  @GetMapping("/edit{id}")
-    public String getEditProduct(Model model,@PathVariable Integer id){
-      Optional<Product>product=productRepository.findById(id);
-   if(!product.isEmpty())return "Error";
+    @GetMapping("/edit{id}")
+    public String getEditProduct(Model model, @PathVariable Integer id) {
+        Optional<Product> product = productRepository.findById(id);
+        if (!product.isEmpty()) return "Error";
 
-   model.addAttribute("edited",product.get());
-   model.addAttribute("categoryList",categoryRepository.findByActiveTrue());
-   return "product/product-edit";
-  }
-@PostMapping("/edit{id}")
-    public String editSave(@PathVariable Integer id, @ModelAttribute ProductDTO productDTO){
-   ApiResponse response = productService.edit(id,productDTO);
-    System.out.println(response);
-    return "redirect:/product";
+        model.addAttribute("edited", product.get());
+        model.addAttribute("categoryList", categoryRepository.findByActiveTrue());
+        return "product/product-edit";
+    }
 
-}
+    @PostMapping("/edit{id}")
+    public String editSave(@PathVariable Integer id, @ModelAttribute ProductDTO productDTO) {
+        ApiResponse response = productService.edit(id, productDTO);
+        System.out.println(response);
+        return "redirect:/product";
+
+    }
 
 
 }
