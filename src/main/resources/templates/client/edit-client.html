@@ -10,10 +10,10 @@
 <h1>Client Edit Page</h1>
 <form method="post" th:action="@{/client/edit/{id}(id=${editlist.getId()})}" th:object="${editlist}">
     <div class="form-group">
-        <input class="form-control" th:field="*{name}" name="fullname" type="text" id="fullname"
+        <input class="form-control" th:field="*{name}" name="name" type="text" id="name"
                placeholder="Client name:"><br>
 
-        <input class="form-control" th:field="*{phoneNumber}" name="phonenumber" type="text" id="phonenumber"
+        <input class="form-control" th:field="*{phoneNumber}" name="phoneNumber" type="text" id="phoneNumber"
                placeholder="Client phone number:">
         <br>
 

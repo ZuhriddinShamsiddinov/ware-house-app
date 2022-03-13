@@ -25,8 +25,8 @@
             <td th:text="${client.getName()}"></td>
             <td th:text="${client.getPhoneNumber()}"></td>
             <td>
-                <a class="btn btn-warning" th:href="${'/currency/edit/'+client.id}">Edit</a>
-                <a class="btn btn-danger" th:href="${'/currency/delete/'+client.id}">Delete</a>
+                <a class="btn btn-warning" th:href="${'/client/edit/'+client.id}">Edit</a>
+                <a class="btn btn-danger" th:href="${'/client/delete/'+client.id}">Delete</a>
             </td>
         </tr>
         </tbody>
