@@ -36,13 +36,5 @@ public class SupplierServise {
         supplierRepository.save(supplier);
         return new ApiResponse("delete",true);
     }
-    public List<Supplier> getAll(){
-        List<Supplier> list=new ArrayList<>();
-        for (Supplier supplier : supplierRepository.findAll()) {
-            if (supplier.isActive()){
-                 list.add(supplier);
-            }
-        }
-        return list;
-    }
+
 }
