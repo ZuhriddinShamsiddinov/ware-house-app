@@ -32,14 +32,14 @@ public class ProductController {
 
     @GetMapping
     public String getProduct(Model model) {
-        model.addAttribute("listProduct", productRepository.findAll());
+        model.addAttribute("listProduct", productRepository.findAllByActiveTrue());
         return "product/product";
     }
 
     @GetMapping("/add")
     public String getAddPage(Model model) {
-        model.addAttribute("CategorytList",categoryRepository.findAll());
-        model.addAttribute("measurementList",measurementRepository.findAllByActiveTrue());
+        model.addAttribute("CategorytList", categoryRepository.findAllByActiveTrue());
+        model.addAttribute("measurementList", measurementRepository.findAllByActiveTrue());
         return "product/product-add";
     }
 
@@ -49,9 +49,12 @@ public class ProductController {
         return "redirect:/product";
     }
 
-    @GetMapping("/delete{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
-        productRepository.deleteById(id);
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        Product product = optionalProduct.get();
+        product.setActive(false);
+        productRepository.save(product);
         return "redirect:/product";
     }
 
@@ -60,8 +63,9 @@ public class ProductController {
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) return "error";
 
-        model.addAttribute("edited", product);
-        model.addAttribute("categoryList", categoryRepository.findByActiveTrue());
+        model.addAttribute("product", product);
+        model.addAttribute("categoryList", categoryRepository.findAllByActiveTrue());
+        model.addAttribute("measurementList", measurementRepository.findAllByActiveTrue());
         return "product/product-edit";
     }
 

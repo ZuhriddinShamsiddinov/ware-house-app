@@ -18,6 +18,7 @@
             <th>Last Name</th>
             <th>Phone</th>
             <th>Code</th>
+            <th>Warehouse</th>
             <th>Operations</th>
         </tr>
         </thead>
@@ -28,6 +29,9 @@
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.phoneNumber}"></td>
             <td th:text="${user.code}"></td>
+            <td th:each=" warehouse : ${user.warehouseList}">
+                <p th:text="${warehouse.name}"></p>
+            </td>
             <td>
                 <a class="btn btn-warning" th:href="${'/user/edit/'+user.id}">Edit</a>
                 <a class="btn btn-danger" th:href="${'/user/delete/'+user.id}">Delete</a>

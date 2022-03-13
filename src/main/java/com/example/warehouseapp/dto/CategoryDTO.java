@@ -8,17 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CategoryDTO {
-    private Integer id;
+
     private String name;
-    private Integer parentCategoryId;
-    private Boolean active;
-
-    public CategoryDTO(Integer id, String name, Integer parentCategoryId) {
-        this.id = id;
-        this.name = name;
-        this.parentCategoryId = parentCategoryId;
-    }
-
-
+    private Integer parentId;
 
 }
