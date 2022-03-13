@@ -11,10 +11,7 @@ public class ProductDTO {
 
     private String name;
     private Integer categoryId;
-    private String code;
     private Integer measurementId;
-
-
 
 }
 

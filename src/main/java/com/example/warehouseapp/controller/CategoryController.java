@@ -1,6 +1,5 @@
 package com.example.warehouseapp.controller;
 
-import com.example.warehouseapp.dto.ApiResponse;
 import com.example.warehouseapp.dto.CategoryDTO;
 import com.example.warehouseapp.entity.Category;
 import com.example.warehouseapp.repository.CategoryRepository;
@@ -22,32 +21,31 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping
-    public String getCategoryPage(Model model){
+    public String getCategoryPage(Model model) {
 
-model.addAttribute("list",categoryRepository.findAll());
-return "category/category";
+        model.addAttribute("list", categoryRepository.findAllByActiveTrue());
+        return "category/category";
 
     }
 
     @GetMapping("/add")
-    public String getSaveCategory(){
-
-return "category/category-add";
-
+    public String getSaveCategory() {
+        return "category/category-add";
     }
 
     @PostMapping("/add")
-    public String saveCategory(Model model, @ModelAttribute Category category){
-
- categoryService.add(category);
- return "redirect:/category";
+    public String saveCategory(@ModelAttribute CategoryDTO categoryDTO) {
+        categoryService.save(categoryDTO);
+        return "redirect:/category";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteCategory(@PathVariable Integer id){
-
-categoryRepository.deleteById(id);
-return "redirect:/category";
+    public String deleteCategory(@PathVariable Integer id) {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        Category category = categoryOptional.get();
+        category.setActive(false);
+        categoryRepository.save(category);
+        return "redirect:/category";
 
     }
 
@@ -62,8 +60,8 @@ return "redirect:/category";
     }
 
     @PostMapping("/edit/{id}")
-    public String saveEditCategory(@ModelAttribute Category category){
-        categoryService.add(category);
+    public String saveEditCategory(@ModelAttribute CategoryDTO categoryDTO, @PathVariable Integer id) {
+        categoryService.edit(id, categoryDTO);
         return "redirect:/category";
     }
 

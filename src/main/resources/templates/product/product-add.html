@@ -16,7 +16,7 @@
                placeholder="product nomi:">
     </div>
     <div>
-        <label> product </label>
+        <label> Category </label>
         <div>
             <select name="categoryId">
                 <option th:each="category : ${CategorytList}"
@@ -26,9 +26,9 @@
         </div>
     </div>
     <div>
-        <label> product </label>
+        <label> Measurement </label>
         <div>
-            <select name="measurmementId">
+            <select name="measurementId">
                 <option th:each="measurmement : ${measurementList}"
                         th:text="${measurmement.name}"
                         th:value="${measurmement.id}">
@@ -37,5 +37,9 @@
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
+<br>
+<br>
+<br>
+<a class="btn btn-danger" th:href="${'/product'}">Back</a>
 </body>
 </html>

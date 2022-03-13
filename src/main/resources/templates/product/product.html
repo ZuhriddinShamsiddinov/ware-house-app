@@ -15,7 +15,9 @@
         <tr>
             <th>Id</th>
             <th>Name</th>
-            <th>Company</th>
+            <th>Category</th>
+            <th>Measurement</th>
+            <th>Code</th>
             <th>Operations</th>
         </tr>
         </thead>
@@ -24,14 +26,19 @@
             <td th:text="${i.index+1}"></td>
             <td th:text="${product.getName()}"></td>
             <td th:text="${product.category.name}"></td>
+            <td th:text="${product.measurement.name}"></td>
+            <td th:text="${product.code}"></td>
             <td>
-                <a class="btn btn-warning" th:href="${'/department/edit/'+department.id}">Edit</a>
-                <a class="btn btn-danger" th:href="${'/department/delete/'+department.id}">Delete</a>
+                <a class="btn btn-warning" th:href="${'/product/edit/'+product.id}">Edit</a>
+                <a class="btn btn-danger" th:href="${'/product/delete/'+product.id}">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-
+<br>
+<br>
+<br>
+<a class="btn btn-danger" th:href="${'/'}">Back</a>
 </body>
 </html>
