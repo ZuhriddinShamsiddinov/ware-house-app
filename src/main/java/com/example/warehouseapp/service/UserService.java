@@ -27,12 +27,10 @@ public class UserService {
         User user = new User();
         user.setName(userDto.getName());
         user.setLastName(userDto.getLastName());
-        user.setPassword(userDto.getPassword());
-        if (!userRepository.existsByPhoneNumber(userDto.getPhoneNumber()))
-            return new ApiResponse("Phone Number is taken", false);
         user.setPhoneNumber(userDto.getPhoneNumber());
         user.setCode(UUID.randomUUID().toString());
-        List<Warehouse> warehousesById = warehouseRepository.findAllById(Collections.singleton(userDto.getWarehouseId()));
+        user.setPassword(userDto.getPassword());
+        List<Warehouse> warehousesById = warehouseRepository.findAllById(userDto.getWarehousesId());
         user.setWarehouseList(warehousesById);
         User save = userRepository.save(user);
         System.out.println(save);
@@ -41,18 +39,13 @@ public class UserService {
 
     public ApiResponse edit(Integer id, UserDTO userDto) {
         Optional<User> optionalUser = userRepository.findById(id);
-        if (!optionalUser.isPresent()) return new ApiResponse("Not Found", false);
         User user = optionalUser.get();
-        if (!userDto.getName().isEmpty()) user.setName(userDto.getName());
-        if (!userDto.getLastName().isEmpty()) user.setLastName(userDto.getLastName());
-        if (!userDto.getPassword().isEmpty()) user.setPassword(userDto.getPassword());
-        if (!userDto.getPhoneNumber().isEmpty() && !userDto.getPhoneNumber().equals(user.getPhoneNumber())) {
-            if (!userRepository.existsByPhoneNumber(userDto.getPhoneNumber()))
-                return new ApiResponse("Phone Number is taken", false);
-            user.setPhoneNumber(userDto.getPhoneNumber());
-        }
+        user.setName(userDto.getName());
+        user.setLastName(userDto.getLastName());
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setPassword(user.getPassword());
         user.setCode(UUID.randomUUID().toString());
-        List<Warehouse> warehouseList = warehouseRepository.findAllById(Collections.singleton(userDto.getWarehouseId()));
+        List<Warehouse> warehouseList = warehouseRepository.findAllById(userDto.getWarehousesId());
         user.setWarehouseList(warehouseList);
         userRepository.save(user);
         return new ApiResponse("Edited!", true);
