@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class CategoryDTO {
 
     private String name;
+
     private Integer parentId;
 
 }
