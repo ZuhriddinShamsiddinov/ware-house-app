@@ -6,19 +6,14 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class OutputDTO {
-
-
+public class InputDTO {
     private Date date;
-
     private Integer warehouseId;
-
-    private Integer clientId;
-
+    private Integer supplierId;
     private Integer currencyId;
-
-    private List<OutputProductDTO> outputProductDTOList;
+    List<InputProductDTO> inputProductDTOList;
 }
