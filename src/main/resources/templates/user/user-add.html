@@ -26,7 +26,7 @@
     <div>
         <label> WareHouse </label>
         <div>
-            <select name="warehousesId">
+            <select name="warehousesId" multiple="multiple">
                 <option th:each="warehouse : ${warehouses}"
                         th:text="${warehouse.name}"
                         th:value="${warehouse.id}">
