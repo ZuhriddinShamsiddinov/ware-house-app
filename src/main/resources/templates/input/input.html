@@ -1,44 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
-  <h1>Input Page</h1>
-  <a href="/input/add" class="btn btn-success">Yangi Input Qo'shish</a>
-  <table class="table table-hover">
-    <thead>
-    <tr>
-      <th>Id</th>
-      <th>Date</th>
-      <th>Warehouse</th>
-      <th>Supplier</th>
-      <th>Currency</th>
-      <th>facture Number</th>
-      <th>Code</th>
-      <th>Operations</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each=" input,i : ${list}">
-      <td th:text="${i.index+1}"></td>
-      <td th:text="${input.date}"></td>
-      <td th:text="${input.warehouse}"></td>
-      <td th:text="${input.supplier}"></td>
-      <td th:text="${input.currency}"></td>
-      <td th:text="${input.factureNumber}"></td>
-      <td th:text="${input.code}"></td>
-      <td>
-        <a class="btn btn-warning" th:href="${'/input/edit/'+input.id}">Edit</a>
-        <a class="btn btn-danger" th:href="${'/input/delete/'+input.id}">Delete</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+    <h1>Input Page</h1>
+    <a href="/input/add" class="btn btn-success">Yangi Input Qo'shish</a>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Warehouse</th>
+            <th>Supplier</th>
+            <th>Currency</th>
+            <th>Amount</th>
+            <th>Price</th>
+            <th>Expire Date</th>
+            <th>Operations</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each=" input,i : ${list}">
+            <td th:text="${i.index+1}"></td>
+            <td th:text="${input.date}"></td>
+            <td th:text="${input.warehouse.name}"></td>
+            <td th:text="${input.supplier.name}"></td>
+            <td th:text="${input.currency.name}"></td>
+            <td th:each="inputProduct: ${inputProductList}"
+                th:selected="${inputProduct.getId()==input.getId()?true:false}">
+                <p th:text="${inputProduct.amount}"></p>
+            </td>
+            <td th:each="inputProduct : ${inputProductList}"
+                th:selected="${inputProduct.getInput().getId()==input.getId()?true:false}">
+                <p th:text="${inputProduct.price}"></p>
+            </td>
+            <td th:each="inputProduct : ${inputProductList}"
+                th:selected="${inputProduct.getInput().getId()==input.getId()?true:false}">
+                <p th:text="${inputProduct.expireDate}"></p>
+            </td>
+
+            <td>
+                <a class="btn btn-warning" th:href="${'/input/edit/'+input.id}">Edit</a>
+                <a class="btn btn-danger" th:href="${'/input/delete/'+input.id}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 <a class="btn btn-danger" th:href="${'/'}">Back</a>
 

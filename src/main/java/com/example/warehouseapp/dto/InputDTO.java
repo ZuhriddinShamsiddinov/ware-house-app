@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+
+import java.sql.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -15,5 +16,5 @@ public class InputDTO {
     private Integer warehouseId;
     private Integer supplierId;
     private Integer currencyId;
-    List<InputProductDTO> inputProductDTOList;
+    List<InputProductDTO> inputProducts;
 }

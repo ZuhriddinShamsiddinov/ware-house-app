@@ -28,10 +28,13 @@ public class InputController {
     WarehouseRepository warehouseRepository;
     @Autowired
     CurrencyRepository currencyRepository;
+    @Autowired
+    InputProductRepository inputProductRepository;
 
     @GetMapping
     public String listAll(Model model) {
         model.addAttribute("list", inputRepository.findAll());
+        model.addAttribute("inputProductList", inputProductRepository.findAll());
         return "input/input";
     }
 
@@ -41,6 +44,7 @@ public class InputController {
         model.addAttribute("supplierList", supplierRepository.findAllByActiveTrue());
         model.addAttribute("warehouseList", warehouseRepository.findAllByActiveTrue());
         model.addAttribute("currencyList", currencyRepository.findAllByActiveTrue());
+        model.addAttribute("today", LocalDate.now().toString());
         return "input/input-add";
     }
 
