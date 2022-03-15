@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<h1>Input Page</h1>
+<form method="post" th:action="@{/input/add}">
+    <div class="form-group">
+        <label for="amount">Amount</label>
+        <input name="amount" type="text" class="form-control" id="amount"
+               placeholder="Amount kirit">
+        <label for="price">Price</label>
+        <input name="price" type="text" class="form-control" id="price"
+               placeholder="Price kirit">
+        <label for="date">Date</label>
+        <input name="date" type="text" class="form-control" id="date"
+               placeholder="Date :: yyyy-MM-dd">
+        <label for="expireDate">Expire Date</label>
+        <input name="expireDate" class="form-control" id="expireDate"
+               placeholder="Muddat kirit :: yyyy-MM-dd">
+    </div>
+    <div>
+        <label> WareHouse </label>
+        <div>
+            <select name="warehousesId">
+                <option th:each="warehouse : ${warehouseList}"
+                        th:text="${warehouse.name}"
+                        th:value="${warehouse.id}">
+            </select>
+        </div>
+    </div>
+
+    <div>
+        <label> Currency </label>
+        <div>
+            <select name="currencyId">
+                <option th:each="currency : ${currencyList}"
+                        th:text="${currency.name}"
+                        th:value="${currency.id}">
+            </select>
+        </div>
+    </div>
+
+    <div>
+        <label> Product </label>
+        <div>
+            <select name="productId">
+                <option th:each="product : ${productList}"
+                        th:text="${product.name}"
+                        th:value="${product.id}">
+            </select>
+        </div>
+    </div>
+
+    <div>
+        <label> Currency </label>
+        <div>
+            <select name="supplierId">
+                <option th:each="supplier : ${supplierList}"
+                        th:text="${supplier.name}"
+                        th:value="${supplier.id}">
+            </select>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+<br>
+<br>
+<br>
+<a class="btn btn-danger" th:href="${'/input'}">Back</a>
+</body>
+</html>
