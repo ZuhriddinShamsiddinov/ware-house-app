@@ -32,9 +32,6 @@
       <td th:text="${input.currency}"></td>
       <td th:text="${input.factureNumber}"></td>
       <td th:text="${input.code}"></td>
-<!--      <td th:each=" warehouse : ${input.warehouseList}">-->
-      <!--        <p th:text="${warehouse.name}"></p>-->
-      <!--      </td>-->
       <td>
         <a class="btn btn-warning" th:href="${'/input/edit/'+input.id}">Edit</a>
         <a class="btn btn-danger" th:href="${'/input/delete/'+input.id}">Delete</a>
