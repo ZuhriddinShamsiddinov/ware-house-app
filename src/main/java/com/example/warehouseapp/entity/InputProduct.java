@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import java.util.Date;
+import java.sql.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity

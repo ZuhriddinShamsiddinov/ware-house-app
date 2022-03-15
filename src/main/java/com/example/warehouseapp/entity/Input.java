@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.util.Date;
 
+
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
