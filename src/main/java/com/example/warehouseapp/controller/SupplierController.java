@@ -1,10 +1,8 @@
 package com.example.warehouseapp.controller;
 
-import com.example.warehouseapp.dto.ApiResponse;
-import com.example.warehouseapp.entity.Client;
 import com.example.warehouseapp.entity.Supplier;
 import com.example.warehouseapp.repository.SupplierRepository;
-import com.example.warehouseapp.service.SupplierServise;
+import com.example.warehouseapp.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("/supplier")
 public class SupplierController {
     @Autowired
-    SupplierServise supplierServise;
+    SupplierService supplierService;
     @Autowired
     SupplierRepository supplierRepository;
 
@@ -33,7 +31,7 @@ public class SupplierController {
 
     @PostMapping("/add")
     public String addSupplier(@ModelAttribute Supplier supplier) {
-        supplierServise.create(supplier);
+        supplierService.create(supplier);
         return "redirect:/supplier";
     }
 
@@ -49,7 +47,7 @@ public class SupplierController {
 
     @PostMapping("/edit/{id}")
     public String editSupplierSave(@PathVariable Integer id, @ModelAttribute Supplier supplier) {
-        ApiResponse update = supplierServise.update(id, supplier);
+        supplierService.update(id, supplier);
         return "redirect:/supplier";
     }
 

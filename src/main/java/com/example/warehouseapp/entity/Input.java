@@ -4,6 +4,7 @@ import com.example.warehouseapp.entity.abs.AbsEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.util.Date;
@@ -23,6 +24,8 @@ public class Input extends AbsEntity {
 
     @ManyToOne
     private Currency currency;
+    @Column(nullable = false)
+    private boolean active = true;
 
     private String factureNumber;
     private String code;
