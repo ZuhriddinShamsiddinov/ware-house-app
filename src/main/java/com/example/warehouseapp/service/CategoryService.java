@@ -30,7 +30,7 @@ public class CategoryService {
 
     public ApiResponse edit(Integer id, CategoryDTO categoryDTO) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
-        if (!categoryOptional.isPresent()) return new ApiResponse("NOT", false);
+        if (categoryOptional.isEmpty()) return new ApiResponse("NOT", false);
 
         Category edit = categoryOptional.get();
         if (categoryDTO.getName() != null) edit.setName(categoryDTO.getName());
