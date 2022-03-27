@@ -58,6 +58,7 @@ public class InputController {
         return "redirect:/input";
     }
 
+
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable UUID id) {
         Optional<Input> inputOptional = inputRepository.findById(id);

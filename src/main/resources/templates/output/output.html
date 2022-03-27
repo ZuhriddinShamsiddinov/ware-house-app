@@ -8,29 +8,36 @@
 </head>
 <body>
 <div class="container">
-    <h1>Currency Page</h1>
-    <a href="/currency/add" class="btn btn-success">Yangi Currency Qo'shish</a>
+    <h1>Output Page</h1>
+    <a href="/output/add" class="btn btn-success">Yangi Output Qo'shish</a>
     <table class="table table-hover">
         <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Operations</th>
+            <th>Date</th>
+            <th>Warehouse</th>
+            <th>Facture Number</th>
+            <th>Currency</th>
+            <th>Client</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each=" currency,i : ${list}">
+        <tr th:each=" output,i : ${list}">
             <td th:text="${i.index+1}"></td>
-            <td th:text="${currency.name}"></td>
+            <td th:text="${output.date}"></td>
+            <td th:text="${output.warehouse.name}"></td>
+            <td th:text="${output.currency.name}"></td>
+            <td th:text="${output.client.name}"></td>
+            <td th:text="${output.client.name}"></td>
+
             <td>
-                <a class="btn btn-warning" th:href="${'/currency/edit/'+currency.id}">Edit</a>
-                <a class="btn btn-danger" th:href="${'/currency/delete/'+currency.id}">Delete</a>
+                <a class="btn btn-danger" th:href="${'/output/delete/'+output.id}">Delete</a>
+
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-<a class="btn btn-danger" href="/home">Back</a>
-
+<br>
 </body>
 </html>

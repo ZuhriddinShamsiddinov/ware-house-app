@@ -4,15 +4,12 @@ import com.example.warehouseapp.dto.ApiResponse;
 import com.example.warehouseapp.dto.OutputDTO;
 import com.example.warehouseapp.dto.OutputProductDTO;
 import com.example.warehouseapp.entity.*;
+import com.example.warehouseapp.entity.Currency;
 import com.example.warehouseapp.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class OutputService {
@@ -29,44 +26,39 @@ public class OutputService {
     CurrencyRepository currencyRepository;
     @Autowired
     OutputPrroductRepository outputPrroductRepository;
-    public ApiResponse addoutput(OutputDTO outputDTO) throws ParseException {
+
+    public ApiResponse add(OutputDTO dto) {
         Output output = new Output();
         output.setCode(UUID.randomUUID().toString());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String format = simpleDateFormat.format(output.getDate());
-        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(format);
-        output.setDate(date1);
+        output.setDate(dto.getDate());
         output.setFactureNumber(UUID.randomUUID().toString());
 
+        Optional<Currency> optionalCurrency = currencyRepository.findById(dto.getCurrencyId());
+        output.setCurrency(optionalCurrency.get());
+        Optional<Client> optionalClient = clientRepository.findById(dto.getClientId());
+        output.setClient(optionalClient.get());
+        Optional<Warehouse> optionalWarehouse = warehouseRepository.findById(dto.getWarehouseId());
+        output.setWarehouse(optionalWarehouse.get());
 
-        Optional<Client> byId = clientRepository.findById(outputDTO.getClientId());
-        if (byId.isEmpty())return new ApiResponse("Eror",false);
-        output.setClient(byId.get());
+        List<OutputProductDTO> outputProductDTOS = dto.getOutputProducts();
 
-        Optional<Warehouse> byId1 = warehouseRepository.findById(outputDTO.getWarehouseId());
-        if (byId1.isEmpty())return new ApiResponse("Eror",false);
-        output.setWarehouse(byId1.get());
+        List<OutputProduct> outputProducts = new ArrayList<>();
 
-        Optional<Currency> byId2 = currencyRepository.findById(outputDTO.getCurrencyId());
-        if (byId2.isEmpty())return new ApiResponse("Eror",false);
-        output.setCurrency(byId2.get());
+        for (OutputProductDTO outputProductDTO : outputProductDTOS) {
+            OutputProduct outputProduct = new OutputProduct();
+            Optional<Product> byId = productRepository.findById(outputProductDTO.getProductId());
 
-
-        for (OutputProductDTO outputProductDTO : outputDTO.getOutputProductDTOList()) {
-            OutputProduct outputProduct=new OutputProduct();
-            outputProduct.setAmount(outputProductDTO.getAmount());
+            outputProduct.setProduct(byId.get());
             outputProduct.setPrice(outputProductDTO.getPrice());
-
-
-
-            Optional<Product> byId3 = productRepository.findById(outputProductDTO.getProductId());
-            if (byId3.isEmpty())return new ApiResponse("Eror",false);
-            outputProduct.setProduct(byId3.get());
+            outputProduct.setAmount(outputProductDTO.getAmount());
             outputProduct.setOutput(output);
-            outputPrroductRepository.save(outputProduct);
+            outputProducts.add(outputProduct);
 
         }
-        return new ApiResponse("Save",true);
 
+
+
+        outputRepository.save(output);
+        return new ApiResponse("Added", true, output);
     }
 }
