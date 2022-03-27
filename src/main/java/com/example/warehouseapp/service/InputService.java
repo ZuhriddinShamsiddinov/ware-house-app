@@ -5,8 +5,8 @@ import com.example.warehouseapp.dto.InputDTO;
 import com.example.warehouseapp.dto.InputProductDTO;
 import com.example.warehouseapp.entity.*;
 import com.example.warehouseapp.repository.*;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -18,23 +18,24 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class InputService {
 
-    @Autowired
+    final
     InputRepository inputRepository;
-    @Autowired
+    final
     WarehouseRepository warehouseRepository;
-    @Autowired
+    final
     SupplierRepository supplierRepository;
-    @Autowired
+    final
     CurrencyRepository currencyRepository;
-    @Autowired
+    final
     ProductRepository productRepository;
-    @Autowired
+    final
     InputProductRepository inputProductRepository;
 
     @SneakyThrows
-    public ApiResponse saveInput(InputDTO inputDTO) {
+    public void saveInput(InputDTO inputDTO) {
         Input input = new Input();
         input.setCode(UUID.randomUUID().toString());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -44,17 +45,26 @@ public class InputService {
         input.setFactureNumber(UUID.randomUUID().toString());
 
         Optional<Currency> optionalCurrency = currencyRepository.findById(inputDTO.getCurrencyId());
-        if (optionalCurrency.isEmpty()) return new ApiResponse("NOT", false);
+        if (optionalCurrency.isEmpty()) {
+            new ApiResponse("NOT", false);
+            return;
+        }
         input.setCurrency(optionalCurrency.get());
 
 
         Optional<Supplier> optionalSupplier = supplierRepository.findById(inputDTO.getSupplierId());
-        if (optionalSupplier.isEmpty()) return new ApiResponse("NOT", false);
+        if (optionalSupplier.isEmpty()) {
+            new ApiResponse("NOT", false);
+            return;
+        }
         input.setSupplier(optionalSupplier.get());
 
 
         Optional<Warehouse> optionalWarehouse = warehouseRepository.findById(inputDTO.getWarehouseId());
-        if (optionalWarehouse.isEmpty()) return new ApiResponse("NOT", false);
+        if (optionalWarehouse.isEmpty()) {
+            new ApiResponse("NOT", false);
+            return;
+        }
         input.setWarehouse(optionalWarehouse.get());
         inputRepository.save(input);
 
@@ -69,15 +79,17 @@ public class InputService {
             inputProduct.setExpireDate(inputProductDTO.getExpireDate());
 
             Optional<Product> optionalProduct = productRepository.findById(inputProductDTO.getProductId());
-            if (optionalProduct.isEmpty()) return new ApiResponse("NOT", false);
+            if (optionalProduct.isEmpty()) {
+                new ApiResponse("NOT", false);
+                return;
+            }
             inputProduct.setProduct(optionalProduct.get());
 
             inputProduct.setInput(input);
             inputProductRepository.save(inputProduct);
         }
-        return new ApiResponse("Save", true);
+        new ApiResponse("Save", true);
     }
-
 
 
 }
