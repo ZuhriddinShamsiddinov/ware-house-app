@@ -2,6 +2,7 @@ package com.example.warehouseapp.service;
 
 import com.example.warehouseapp.dto.ApiResponse;
 import com.example.warehouseapp.dto.ProductDTO;
+import com.example.warehouseapp.entity.Attachment;
 import com.example.warehouseapp.entity.Category;
 import com.example.warehouseapp.entity.Measurement;
 import com.example.warehouseapp.entity.Product;
@@ -11,6 +12,7 @@ import com.example.warehouseapp.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,7 +31,6 @@ public class ProductService {
         Product product = new Product();
         product.setName(productDTO.getName());
         product.setCode(UUID.randomUUID().toString());
-
         Optional<Category> categoryOptional = categoryRepository.findById(productDTO.getCategoryId());
         product.setCategory(categoryOptional.get());
 

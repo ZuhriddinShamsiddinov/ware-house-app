@@ -6,14 +6,19 @@ import com.example.warehouseapp.entity.Product;
 import com.example.warehouseapp.repository.CategoryRepository;
 import com.example.warehouseapp.repository.MeasurementRepository;
 import com.example.warehouseapp.repository.ProductRepository;
+import com.example.warehouseapp.service.AttachmentService;
 import com.example.warehouseapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/product")
@@ -28,6 +33,8 @@ public class ProductController {
     CategoryRepository categoryRepository;
     @Autowired
     MeasurementRepository measurementRepository;
+    @Autowired
+    AttachmentService attachmentService;
 
 
     @GetMapping
@@ -75,6 +82,16 @@ public class ProductController {
         System.out.println(response);
         return "redirect:/product";
 
+    }
+
+    @PostMapping("/uploadFiles")
+    public List<UUID> uploadFile(MultipartHttpServletRequest request) {
+        return attachmentService.upload(request);
+    }
+
+    @GetMapping("/download/{id}")
+    public void download(@PathVariable UUID id, HttpServletResponse response) {
+        attachmentService.download(id, response);
     }
 
 
